@@ -12,17 +12,6 @@ class ProfilePageSkeleton extends StatelessWidget {
         : Colors.grey[700]!;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Shimmer.fromColors(
-          baseColor: baseColor,
-          highlightColor: highlightColor,
-          child: Container(
-            width: 100,
-            height: 20,
-            color: Colors.white,
-          ),
-        ),
-      ),
       body: Shimmer.fromColors(
         baseColor: baseColor,
         highlightColor: highlightColor,
