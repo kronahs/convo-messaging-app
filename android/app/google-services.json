@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "156814059452",
+    "project_id": "convo-chat-de3fa",
+    "storage_bucket": "convo-chat-de3fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156814059452:android:86849dccbe60976ef8adb9",
+        "android_client_info": {
+          "package_name": "com.naodtadele.chat_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNM6ZkF8_II39I99se65QyzubuF5ZmAOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
