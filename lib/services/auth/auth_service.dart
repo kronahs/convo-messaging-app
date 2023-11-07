@@ -55,4 +55,5 @@ class AuthServiceProvider extends ChangeNotifier {
     }
   }
 
+
 }

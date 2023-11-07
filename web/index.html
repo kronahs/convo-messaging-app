@@ -31,23 +31,30 @@
 
   <title>Convo</title>
   <link rel="manifest" href="manifest.json">
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 
-  <script>
-      var firebaseConfig = {
-        apiKey: "AIzaSyBNM6ZkF8_II39I99se65QyzubuF5ZmAOo",
-        authDomain: "convo-chat.firebaseapp.com",
-        databaseURL: "https://convo-chat.firebaseio.com",
-        projectId: "convo-chat-de3fa",
-        storageBucket: "convo-chat-de3fa.appspot.com",
-        messagingSenderId: "...",
-        appId: "1:...:web:...",
-        measurementId: "G-...",
-      };
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-    </script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyCCeBDLxqrzYgAhErMhZmQufMbNAyZGefo",
+    authDomain: "convo-chat-de3fa.firebaseapp.com",
+    projectId: "convo-chat-de3fa",
+    storageBucket: "convo-chat-de3fa.appspot.com",
+    messagingSenderId: "156814059452",
+    appId: "1:156814059452:web:fb7b00a8454e3e21f8adb9",
+    measurementId: "G-8MESC36EF1"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 
   <script>
     // The value below is injected by flutter build, do not touch.
@@ -59,6 +66,13 @@
 
 </head>
 <body>
+<style>
+  body {
+    max-width: 1200px; /* Set the maximum width for the entire body */
+    margin: 0 auto; /* Center the content horizontally */
+  }
+</style>
+
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js

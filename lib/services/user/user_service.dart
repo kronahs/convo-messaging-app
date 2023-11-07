@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../utils/utility_functions.dart';
@@ -78,6 +79,39 @@ class UserServiceProvider extends ChangeNotifier{
 
     return userData;
   }
+
+  Future<bool> deleteUser() async {
+    try {
+      await initialize(); // Call initialize method to set uid
+
+      // Step 1: Delete user data from Firestore collection 'users'
+      await _firestore.collection('users').doc(uid).delete();
+
+      // Step 2: Delete user's chat rooms
+      QuerySnapshot chatRoomsSnapshot = await _firestore.collection('chat_rooms').where('users', arrayContains: uid).get();
+      await Future.forEach(chatRoomsSnapshot.docs, (chatRoomDoc) async {
+        await chatRoomDoc.reference.delete();
+      });
+
+      // Step 3: Delete user's profile picture from Firebase Storage (assuming the path is stored in 'profilePic' field)
+      String? profilePicPath = await getUserData().then((userData) => userData['profilePic']);
+      if (profilePicPath != null) {
+        await FirebaseStorage.instance.refFromURL(profilePicPath).delete();
+      }
+
+      // Step 4: Delete the user account from Firebase Authentication
+      await _firebaseAuth.currentUser!.delete();
+
+      // Notify listeners (if needed)
+      notifyListeners();
+      return true;
+    } catch (e) {
+      print('Error deleting user: $e');
+      return false;
+      // Handle the error as needed
+    }
+  }
+
 
 
 }

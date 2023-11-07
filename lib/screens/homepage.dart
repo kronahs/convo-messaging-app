@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
+import '../services/user/profilePictureService.dart';
 import '../services/user/userSearchDelegate.dart';
 import '../widgets/loadingSkeletons/chatListSkeleton.dart';
 import 'chatPage.dart';
@@ -22,6 +23,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final ProfilePictureService _profilePictureService = ProfilePictureService();
+  String? currentUserProfilePicUrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchCurrentUserProfilePic();
+  }
+
+  Future<void> _fetchCurrentUserProfilePic() async {
+    String userId = _firebaseAuth.currentUser!.uid;
+    String? profilePicUrl = await _profilePictureService.getProfilePictureUrl(userId);
+    print(profilePicUrl);
+    setState(() {
+      currentUserProfilePicUrl = profilePicUrl;
+    });
+  }
 
   @override
   bool get wantKeepAlive => true;
@@ -36,16 +54,19 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
         title: Image.asset('assets/applogo.png', width: 40, height: 40),
         centerTitle: true,
         leading: InkWell(
-          onTap: (){
-            //Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavigation(selectedTabIndex: 2)));
+          onTap: () {
+             Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 14),
             child: CircleAvatar(
-              foregroundImage: NetworkImage('https://sb.kaleidousercontent.com/67418/1920x1545/c5f15ac173/samuel-raita-ridxdghg7pw-unsplash.jpg'),
+              foregroundImage:
+                   NetworkImage(currentUserProfilePicUrl ?? 'https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg')
+                  // You can use a default image if profile pic URL is null
             ),
           ),
         ),
+
         actions: [
           IconButton(
               onPressed: () async {

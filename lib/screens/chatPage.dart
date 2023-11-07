@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:chat_app/screens/userDetailPage.dart';
 import 'package:chat_app/services/chat/chat_service.dart';
 import 'package:chat_app/utils/utility_functions.dart';
 import 'package:chat_app/widgets/messageCard.dart';
@@ -23,20 +24,36 @@ class ChatPage extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-            title: Row(
-              children: [
-                CircleAvatar(
-                  foregroundImage: NetworkImage(chatUserImg),
+            title: GestureDetector(
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                    builder: (context) => UserDetailPage(
+                  profilePicUrl: chatUserImg,
+                  bio: 'Hello There', // Pass the actual bio here
+                  username: chatUserName,
+                ),        settings: RouteSettings(
+                      arguments: chatUserImg, // Pass the hero tag as an argument
+                    ),
                 ),
-                SizedBox(width: 16,),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(chatUserName, style: Theme.of(context).textTheme.titleMedium),
-                    Text( isOnline == 'true' ? 'Online' : 'Last Seen ${_util.formatLastActive(lastActive)}', style: Theme.of(context).textTheme.bodySmall),
-                  ],
-                ),
-              ],
+                );
+              },
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    foregroundImage: NetworkImage(chatUserImg),
+                  ),
+                  SizedBox(width: 16,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(chatUserName, style: Theme.of(context).textTheme.titleMedium),
+                      Text( isOnline == 'true' ? 'Online' : 'Last Seen ${_util.formatLastActive(lastActive)}', style: Theme.of(context).textTheme.bodySmall),
+                    ],
+                  ),
+                ],
+              ),
             )
         ),
         body: ChatList(receiverId: receiverId,)

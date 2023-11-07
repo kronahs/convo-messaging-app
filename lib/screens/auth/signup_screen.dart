@@ -1,4 +1,5 @@
 import 'package:chat_app/screens/auth/login_screen.dart';
+import 'package:chat_app/screens/auth/profilePicUploadScreen.dart';
 import 'package:chat_app/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
     String password = _passwordController.text;
     String ConfirmPassword = _ConfPasswordController.text;
     String defaultProfilePic = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
-    
+
     final _authService = Provider.of<AuthServiceProvider>(context,listen: false);
     try{
       if(password != ConfirmPassword){
@@ -61,7 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('Welcome to ChatPach', style: Theme.of(context).textTheme.titleMedium,),
+                      Text('Welcome to Convo', style: Theme.of(context).textTheme.titleMedium,),
                       SizedBox(height: 30,),
                        TextField(
                         controller: _fullNameController,
@@ -108,6 +109,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ElevatedButton(
                         onPressed: () {
                           signUp();
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LogInPage()));
                         },
                         child: Text('Sign Up'),
                       ),
